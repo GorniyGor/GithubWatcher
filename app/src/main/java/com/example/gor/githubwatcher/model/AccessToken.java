@@ -1,4 +1,4 @@
-package com.example.gor.githubwatcher.module;
+package com.example.gor.githubwatcher.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp"
+    android:paddingTop="5sp"
+    android:paddingBottom="5sp">
+
+    <TextView
+        android:id="@+id/id_commit_hash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hash"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/id_commit_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author"
+        android:textStyle="italic"
+
+        android:layout_below="@id/id_commit_hash"
+        android:layout_marginRight="10sp"/>
+
+    <TextView
+        android:id="@+id/id_commit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textStyle="italic"
+
+        android:layout_below="@id/id_commit_author"/>
+
+    <TextView
+        android:id="@+id/id_commit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:textStyle="italic"
+
+        android:layout_below="@id/id_commit_date"/>
+
+</RelativeLayout>

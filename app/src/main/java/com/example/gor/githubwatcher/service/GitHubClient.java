@@ -1,7 +1,8 @@
 package com.example.gor.githubwatcher.service;
 
-import com.example.gor.githubwatcher.module.AccessToken;
-import com.example.gor.githubwatcher.module.Repository;
+import com.example.gor.githubwatcher.model.AccessToken;
+import com.example.gor.githubwatcher.model.RepoItem;
+import com.example.gor.githubwatcher.model.Commit;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 /**
  * Created by Gor on 22.09.2017.
@@ -29,5 +30,10 @@ public interface GitHubClient {
     );
 
     @GET("/user/repos")
-    Call<List<Repository>> getRepositories(@Query("access_token") String accessToken);
+    Call<List<RepoItem>> getRepositories();
+
+    @GET("/repos/{owner}/{repo}/commits")
+    Call<List<Commit>> getRepoCommits(@Path("owner") String owner, @Path("repo") String repoName);
+
+
 }

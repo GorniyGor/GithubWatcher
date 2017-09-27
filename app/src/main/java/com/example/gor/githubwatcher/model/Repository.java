@@ -1,4 +1,4 @@
-package com.example.gor.githubwatcher.module;
+package com.example.gor.githubwatcher.model;
 
 /**
  * Created by Gor on 23.09.2017.

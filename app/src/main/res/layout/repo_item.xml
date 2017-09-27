@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/id_avatar_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+
+        android:layout_marginRight="20sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="10sp"/>
+
+    <TextView
+        android:id="@+id/id_repo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textStyle="bold"
+
+        android:layout_toRightOf="@id/id_avatar_image"
+        android:layout_marginTop="10sp"/>
+
+    <TextView
+        android:id="@+id/id_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author"
+        android:textStyle="bold"
+
+        android:layout_toRightOf="@id/id_avatar_image"
+        android:layout_below="@id/id_repo_name"/>
+
+    <TextView
+        android:id="@+id/id_forks_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Count of forks"
+        android:textStyle="bold"
+
+        android:layout_toRightOf="@id/id_avatar_image"
+        android:layout_below="@id/id_author"/>
+
+    <TextView
+        android:id="@+id/id_watchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Watchers"
+        android:textStyle="bold"
+
+        android:layout_toRightOf="@id/id_avatar_image"
+        android:layout_below="@id/id_forks_count"/>
+
+    <TextView
+        android:id="@+id/id_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textStyle="bold"
+
+        android:layout_toRightOf="@id/id_avatar_image"
+        android:layout_below="@id/id_watchers"/>
+
+
+
+
+</RelativeLayout>
