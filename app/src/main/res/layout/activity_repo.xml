@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gor.githubwatcher.ItemRepoActivity">
+
+    <include
+        layout="@layout/repo_item"
+        android:id="@+id/id_repo_include_layout" />
+
+
+    <TextView
+        android:id="@+id/id_commits_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Commits"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+
+        android:layout_marginTop="10sp"
+        android:paddingTop="5sp"
+        android:paddingBottom="10sp"
+        android:layout_below="@id/id_repo_include_layout"/>
+
+    <ListView
+        android:id="@+id/id_commits_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryLight"
+
+        android:layout_below="@id/id_commits_list_title"/>
+
+</RelativeLayout>
