@@ -19,11 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private final static String AUTH_URL = "https://github.com/login/oauth/authorize";
     private final String clientId = "408ac7d0ff6657b26304";
     private final String clientSecret = "c7954bf7c3c7be3acf5bda32e288f59e5e575c46";
     private final String redirectUri = "githubwatcher://callback";
-    private final static String AUTH_URL = "https://github.com/login/oauth/authorize";
-
     Button loginButton;
 
     @Override
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -49,8 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Uri uri = getIntent().getData();
 
-        if(uri != null && uri.toString().startsWith(redirectUri)){
-            Toast.makeText(this, "Get callback", Toast.LENGTH_SHORT).show();
+        if (uri != null && uri.toString().startsWith(redirectUri)) {
 
             String code = uri.getQueryParameter("code");
 
@@ -64,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             accessTokenCall.enqueue(new Callback<AccessToken>() {
                 @Override
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
-                    Toast.makeText(LoginActivity.this, "Response success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, ListReposActivity.class);
                     intent.putExtra("access_token", response.body().getAccessToken());
@@ -73,9 +70,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<AccessToken> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this, "Response fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            finish();
 
         }
 

@@ -42,8 +42,6 @@ public class RepoItem {
     }
 
     public String getAuthor() {
-        /*String ownerString = owner.toString();
-        Author author = new Gson().fromJson(ownerString, Author.class);*/
         return owner.getAuthor();
     }
 
