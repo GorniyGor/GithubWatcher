@@ -12,8 +12,6 @@ import com.example.gor.githubwatcher.di.AppComponent;
 import com.example.gor.githubwatcher.model.AccessToken;
 import com.example.gor.githubwatcher.service.GitHubClient;
 
-import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +26,8 @@ public class LoginActivity extends AppCompatActivity {
 
     AppComponent component;
 
-    @Inject public GitHubClient client;
+    /*@Inject*/
+    GitHubClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

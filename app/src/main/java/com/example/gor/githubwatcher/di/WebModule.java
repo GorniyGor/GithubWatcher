@@ -30,7 +30,7 @@ public class WebModule {
         this.accessToken = accessToken;
     }
 
-//    @Named("auth_client")
+    /*@Named("auth_client")*/
     @Provides
     public GitHubClient provideAuthClient(){
 
