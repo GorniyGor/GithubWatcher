@@ -7,11 +7,11 @@ import java.util.List;
  */
 
 public class DataSourceRepos {
-    private static final DataSourceRepos ourInstance = new DataSourceRepos();
+    /*private static final DataSourceRepos ourInstance = new DataSourceRepos();
 
     public static DataSourceRepos getInstance() {
         return ourInstance;
-    }
+    }*/
     //--------------------------------------------------------------------
 
     private List<RepoItem> repos;

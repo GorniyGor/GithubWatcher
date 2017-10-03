@@ -7,33 +7,35 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.example.gor.githubwatcher.di.AppComponent;
+import com.example.gor.githubwatcher.di.DaggerAppComponent;
+import com.example.gor.githubwatcher.di.WebModule;
 import com.example.gor.githubwatcher.model.Commit;
 import com.example.gor.githubwatcher.model.DataSourceRepos;
 import com.example.gor.githubwatcher.model.RepoItem;
 import com.example.gor.githubwatcher.model.adapters.RepoListAdapter;
 import com.example.gor.githubwatcher.service.GitHubClient;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListReposActivity extends AppCompatActivity {
 
     private String accessToken;
     List<String> repoList = new ArrayList<String>();
-    DataSourceRepos data = DataSourceRepos.getInstance();
+
+    /*@Inject*/
+    DataSourceRepos data;
 
     RecyclerView recyclerView;
+
+    private AppComponent component2;
+    /*@Inject @Named("api_client")*/
+    /*GitHubClient client;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,30 +43,12 @@ public class ListReposActivity extends AppCompatActivity {
 
         accessToken = getIntent().getStringExtra("access_token");
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public okhttp3.Response intercept(Chain chain) throws IOException {
-                        Request origReq = chain.request();
-                        HttpUrl oldUrl = origReq.url();
+        component2 = DaggerAppComponent.builder()
+                .webModule(new WebModule(accessToken))
+                .build();
+        final GitHubClient client = component2.client();
+        data = App.component(this).data();
 
-                        HttpUrl newUrl = oldUrl.newBuilder().
-                                addQueryParameter("access_token", accessToken).build();
-
-                        Request.Builder requestBuilder = origReq.newBuilder().url(newUrl);
-
-                        Request request = requestBuilder.build();
-                        return chain.proceed(request);
-                    }
-                }).build();
-
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-
-        final GitHubClient client = retrofit.create(GitHubClient.class);
         Call<List<RepoItem>> clientRepositoriesCall = client.getRepositories();
         clientRepositoriesCall.enqueue(new Callback<List<RepoItem>>() {
             @Override
@@ -86,7 +70,7 @@ public class ListReposActivity extends AppCompatActivity {
                     @Override
                     public void onClick(final int i) {
 
-                        final Call<List<Commit>> repoCommitsCall =
+                        Call<List<Commit>> repoCommitsCall =
                                 client.getRepoCommits(
                                         data.getSelectedRepo(i).getAuthor(),
                                         data.getSelectedRepo(i).getName());

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gor.githubwatcher.di.AppComponent;
 import com.example.gor.githubwatcher.model.DataSourceRepos;
 import com.example.gor.githubwatcher.model.RepoItem;
 import com.example.gor.githubwatcher.model.adapters.CommitListAdapter;
@@ -22,14 +23,27 @@ public class ItemRepoActivity extends AppCompatActivity {
 
     ListView commitListView;
 
+    /*@Inject*/
+    DataSourceRepos data;
+    private AppComponent component;
+
     RepoItem repo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /*component = DaggerAppComponent.builder()
+                .webModule(new WebModule())
+                .dataModule(new DataModule())
+                .build();*/
+        component = App.component(this);
+        data = component.data();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repo);
         int i = getIntent().getIntExtra("number_of_repo", 0);
-        repo = DataSourceRepos.getInstance().getSelectedRepo(i);
+        repo = data.getSelectedRepo(i);
 
         avatarImage = (ImageView) findViewById(R.id.id_avatar_image);
         repoName = (TextView) findViewById(R.id.id_repo_name);

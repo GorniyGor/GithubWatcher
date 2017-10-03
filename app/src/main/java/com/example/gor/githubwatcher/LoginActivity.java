@@ -8,14 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.gor.githubwatcher.di.AppComponent;
 import com.example.gor.githubwatcher.model.AccessToken;
 import com.example.gor.githubwatcher.service.GitHubClient;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,10 +26,22 @@ public class LoginActivity extends AppCompatActivity {
     private final String redirectUri = "githubwatcher://callback";
     Button loginButton;
 
+    AppComponent component;
+
+    @Inject public GitHubClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        component = App.component(this);
+        /*component = DaggerAppComponent.builder()
+                .webModule(new WebModule())
+                .dataModule(new DataModule())
+                .build();*/
+        client = component.client();
+        /*component.inject(this);*/
 
         loginButton = (Button) findViewById(R.id.id_login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
             String code = uri.getQueryParameter("code");
 
-            Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl("https://github.com/")
-                    .addConverterFactory(GsonConverterFactory.create());
-            Retrofit retrofit = builder.build();
-
-            GitHubClient client = retrofit.create(GitHubClient.class);
             Call<AccessToken> accessTokenCall = client.getAccessToken(clientId, clientSecret, code);
             accessTokenCall.enqueue(new Callback<AccessToken>() {
                 @Override
